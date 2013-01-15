@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        CPDanWindow.cpp
+        CPDanWindow.cpp \
+    DatabaseSelector.cpp
 
-HEADERS  += CPDanWindow.h
+HEADERS  += CPDanWindow.h \
+    DatabaseSelector.h
 
-FORMS    += CPDanWindow.ui
+FORMS    += CPDanWindow.ui \
+    DatabaseSelector.ui
