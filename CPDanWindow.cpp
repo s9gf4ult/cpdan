@@ -1,6 +1,9 @@
 #include "CPDanWindow.h"
 #include "ui_CPDanWindow.h"
 #include <QMessageBox>
+#include "DatabaseSelector.h"
+#include "dbmanager.h"
+#include <QtSql>
 
 CPDanWindow::CPDanWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,11 +37,33 @@ void CPDanWindow::tryCloseDatabase() {
     }
 }
 
+void CPDanWindow::createSqliteDatabase(QString filename) {
+    QSqlDatabase *db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
+    db->setDatabaseName(filename);
+    if (db->open()) {
+        database=db;
+        DBManager::createTables(database);
+    } else {
+        db->close();
+        delete db;
+        QMessageBox mb(this);
+        mb.setModal(true);
+        mb.setText(tr("Error while opening sqlite file"));
+        mb.setIcon(QMessageBox::Critical);
+        mb.exec();
+    }
+}
+
 void CPDanWindow::createDatabase() {
     this->tryCloseDatabase();
     if (!this->database) {
-
-
+        DatabaseSelector dbselector(this, true);
+        dbselector.setModal(true);
+        dbselector.exec();
+        if (dbselector.getDbType() == DatabaseSelector::Sqlite &&
+            dbselector.getSqliteFilename().length() > 0) {
+            createSqliteDatabase(dbselector.getSqliteFilename());
+        }
     }
  }
 

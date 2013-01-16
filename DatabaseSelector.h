@@ -11,12 +11,30 @@ class DatabaseSelector : public QDialog
 {
     Q_OBJECT
     
+
+
 public:
-    explicit DatabaseSelector(QWidget *parent = 0);
+    enum DBType {Sqlite,
+                 Postgresql};
+
+
+    explicit DatabaseSelector(QWidget *parent, bool create);
+    enum DBType getDbType();
+    QString getSqliteFilename();
+
     ~DatabaseSelector();
+
+
+public slots:
+    void sqliteFileSelected();
+    void onTabChanged(int tab);
     
 private:
     Ui::DatabaseSelector *ui;
+    bool dialogCreate;
+
+    enum DBType dbtype;
+    QString sqlite_filename;
 };
 
 #endif // DATABASESELECTOR_H

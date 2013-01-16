@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         CPDanWindow.cpp \
-    DatabaseSelector.cpp
+    DatabaseSelector.cpp \
+    dbmanager.cpp
 
 HEADERS  += CPDanWindow.h \
-    DatabaseSelector.h
+    DatabaseSelector.h \
+    dbmanager.h
 
 FORMS    += CPDanWindow.ui \
     DatabaseSelector.ui

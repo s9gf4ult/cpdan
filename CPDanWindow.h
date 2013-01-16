@@ -14,8 +14,10 @@ class CPDanWindow : public QMainWindow
     
 public:
     explicit CPDanWindow(QWidget *parent = 0);
-    void tryCloseDatabase();
     ~CPDanWindow();
+
+    void createSqliteDatabase(QString filename);
+    void tryCloseDatabase();
 
 public slots:
     void createDatabase();
